@@ -76,6 +76,8 @@ export default function App() {
   const [limit, setLimit] = useState(3)
   const [state, dispatch] = useReducer(logger(reducer), 
   {
+    //movies: [{"Title":"Beta Test","Year":"2016","imdbID":"tt4244162","Type":"movie","Poster":"https://m.media-amazon.com/images/M/MV5BODdlMjU0MDYtMWQ1NC00YjFjLTgxMDQtNDYxNTg2ZjJjZDFiXkEyXkFqcGdeQXVyMTU2NTcxNDg@._V1_SX300.jpg"},{"Title":"Johnny Test","Year":"2005–2014","imdbID":"tt0454349","Type":"series","Poster":"https://m.media-amazon.com/images/M/MV5BYzc3OGZjYWQtZGFkMy00YTNlLWE5NDYtMTRkNTNjODc2MjllXkEyXkFqcGdeQXVyNjExODE1MDc@._V1_SX300.jpg"},{"Title":"Test Pilot","Year":"1938","imdbID":"tt0030848","Type":"movie","Poster":"https://m.media-amazon.com/images/M/MV5BZjVjZmQyNzAtNTBiOC00MjNkLTk1NjktNGI1YmFmYjA0ODNmXkEyXkFqcGdeQXVyMDI2NDg0NQ@@._V1_SX300.jpg"},{"Title":"Test","Year":"2013","imdbID":"tt2407380","Type":"movie","Poster":"https://m.media-amazon.com/images/M/MV5BMTQwMDU5NDkxNF5BMl5BanBnXkFtZTcwMjk5OTk4OQ@@._V1_SX300.jpg"},{"Title":"The Test","Year":"2012","imdbID":"tt1986180","Type":"movie","Poster":"https://m.media-amazon.com/images/M/MV5BMTYwNTgzMjM5M15BMl5BanBnXkFtZTcwNDUzMTE1OA@@._V1_SX300.jpg"},{"Title":"Baka and Test: Summon the Beasts","Year":"2010–","imdbID":"tt1655610","Type":"series","Poster":"https://m.media-amazon.com/images/M/MV5BNThiMWI0ODktMzY5NC00YzE5LWIzMjUtYTUzYWNiYWUyZmE2XkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_SX300.jpg"},{"Title":"The Test","Year":"2013","imdbID":"tt2616114","Type":"movie","Poster":"https://m.media-amazon.com/images/M/MV5BMjMzMDQwMzM2M15BMl5BanBnXkFtZTcwMzA1OTg1OQ@@._V1_SX300.jpg"},{"Title":"Rabbit Test","Year":"1978","imdbID":"tt0078133","Type":"movie","Poster":"https://m.media-amazon.com/images/M/MV5BYmMyYzYxNmYtMGU4OC00MDFlLWJiYmQtZTJmNTMwZjg1ZTkwXkEyXkFqcGdeQXVyMTY5MDE5NA@@._V1_SX300.jpg"},{"Title":"This Is Not a Test","Year":"1962","imdbID":"tt0183884","Type":"movie","Poster":"https://m.media-amazon.com/images/M/MV5BOTU5MDkwNDAzOV5BMl5BanBnXkFtZTgwNjE4NDgwMzE@._V1._CR76,175,222,296_SY132_CR5,0,89,132_AL_.jpg_V1_SX300.jpg"}
+    //],
     movies: [], 
     loading: false, 
     error: null,
@@ -123,8 +125,8 @@ export default function App() {
               <Movie 
                 onClick={() => {console.log("Hey Im a movie")}}>
                 <Poster posterUrl={movies[j]["Poster"]}/>
-                <BigActorList>Robert Downey Gweneth Paltro</BigActorList>
-                <SmallActorList>Joe Bones Tella Harry</SmallActorList>
+                {/*<BigActorList>{movies[j]["Actors"]}</BigActorList>
+                <SmallActorList>Joe Bones Tella Harry</SmallActorList>*/}
               </Movie>
             </Col>)
         }
@@ -151,25 +153,11 @@ export default function App() {
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         crossorigin="anonymous"
       />    
-      <header className="App-header">
-        {numMovies > limit ?
-        <Button 
-          onClick={() => {
-            setLimit(limit + 3)
-          }}>View More
-        </Button> : <div/>}
-
-        {numMovies && limit ? 
-        <Button 
-          onClick={() => {
-            let newLimit = limit - 3
-            if (newLimit < 0) newLimit = 0
-            setLimit(newLimit)
-          }}>View Less
-        </Button> : <div/>}
-
-
-        <Form
+      <header className="App-header d-block pt-2">
+      <div class="mt-9 mx-auto" style={
+        {width : "400px"
+        }}>
+        <Form 
           onSubmit={e => handleSubmit(e)}>
           <Form.Row>
             <Col xs={10}>
@@ -187,13 +175,50 @@ export default function App() {
           {state.error &&
           <h2>{state.error}</h2>}
         </Form>
+        </div>
 
+        <div
+        class="mx-auto" style={{
+          top: "70px"
+        }}
+        >
+        <Container className="mt-2">
+        <Row>
+        <Col xs={5}>
+        {numMovies && limit ? 
+        <Button className="d-block float-right"
+          onClick={() => {
+            let newLimit = limit - 3
+            if (newLimit < 0) newLimit = 0
+            setLimit(newLimit)
+          }}>View Less
+        </Button> : <div/>}
+        </Col>
+        {numMovies ?
+        <Col xs={1}>
+          {"  " + limit + "  "}
+        </Col>
+        :<div/>}
+        <Col xs={5}>
+        {numMovies > limit ?
+        <Button 
+          className="d-block float-left"
+          onClick={() => {
+            setLimit(limit + 3)
+          }}>View More
+        </Button> : <div/>}
+        </Col>
+        </Row>
+        </Container>
+        </div>
 
-        
+        <div class="mt-3">
         <Container>
           {createTable(state.movies)}
         </Container>
-      </header>
+        </div>
+      </header>      
+
     </div>
   );
 }
