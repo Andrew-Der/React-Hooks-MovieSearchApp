@@ -1,46 +1,17 @@
 import React from 'react';
 import { useState, useReducer, useEffect } from 'react'
-import logo from './logo.svg';
 import './App.css';
 import { Button } from 'react-bootstrap'
 import { SearchButton } from './SearchField'
 import axios from 'axios'
 import logger from 'use-reducer-logger'
 import { Container, Row, Col } from 'react-bootstrap'
-
 import Movie, { Poster, BigActorList, SmallActorList } from './components/Movie'
 import { Form } from 'react-bootstrap'
 
 const apiKey = "8469727d"
 const apiQueryParam = `apikey=${apiKey}`
 const url = "http://www.omdbapi.com"
-
-export class Apps extends React.Component {
-
-  constructor(props) {
-    super(props)
-    this.name = "Andrew"
-    this.temp = "Billy"
-  }
-
-  varA  () {
-    console.log("This is a function")
-  }
-
-  render() {
-    //const temp = this.name
-    return (
-      <h1>Variable : {this.temp}
-        <Button
-          onClick={() => {
-            this.varA()
-          }} 
-        >Push message</Button>
-      </h1>
-    )
-  }
-}
-
 
 export default function App() {
 

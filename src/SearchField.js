@@ -1,11 +1,9 @@
 import React from 'react';
-import { useState, useReducer, useEffect } from 'react'
 import { useContext, createContext } from "react"
-import logo from './logo.svg';
 import './App.css';
 import { Button } from 'react-bootstrap'
 
-
+//Not using this componenet
 const SearchFieldContext = createContext()
 
 export default function SearchField (props) {
@@ -32,5 +30,5 @@ export function SearchButton(props) {
 
 export function SearchTextField(props) {
 	const [placeholder] = props
-
+	return placeholder
 }

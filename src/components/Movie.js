@@ -40,7 +40,9 @@ export function BigActorList (props) {
 	const { children } = props
 	const { onClick } = useContext(MovieContext)
 	return (
-		<h4>{children}</h4>
+		<h4
+		onClick={onClick}
+		>{children}</h4>
 	)
 }
 
